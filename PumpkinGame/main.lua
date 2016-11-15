@@ -6,7 +6,7 @@ function love.load()
     love.mouse.setVisible(false)
   
 		-- Game States --
-			gameState = "menu"
+			gameState = "game"
       
 		-- Score -- 
 			score = 0
@@ -61,6 +61,9 @@ function love.load()
         pumpkinRageY      = math.random(-50, 10)
         
         marker = love.graphics.newImage("Sprites/marker.png")
+        markerX = 180
+        markerY = 450
+        
         angle = 0 
         pumpkinAngle = 0
         speed = 100
@@ -100,7 +103,7 @@ function love.draw()
   love.graphics.draw(playerHand, mouse_x, mouse_y)
   love.graphics.draw(cauldron, 40, 450)
   
-  love.graphics.draw(marker, 165, 400, angle, 1, 1, 15, 15)
+  love.graphics.draw(marker, markerX, markerY, angle, 1, 1, 15, 15)
   
   -- Debug -- 
   love.graphics.print( "Mouse X: ".. mouse_x .. " Mouse Y: " .. mouse_y, 10, 10 )
@@ -141,6 +144,23 @@ function game_menu()
   
 end
 
+function game_screen()
+  hitTest1 = CheckCollision(pumpkinRageX, pumpkinRageY, 50, 50, markerX, markerY, 30, 30)
+    if(hitTest1) then
+      pumpkinRageY    = math.random(-50, 10)
+      pumpkinRageX    = math.random(-100, 460)
+      score           = score - 100
+    end
+end
+
+function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
+  return x1 < x2+w2 and
+         x2 < x1+w1 and
+         y1 < y2+h2 and
+         y2 < y1+h1
+end
+
+
 
 function love.keypressed(key)
    if key == "tab" then
@@ -159,12 +179,12 @@ function love.update(dt)
   score = score + 1
   love.graphics.rotate( 1 )
   
-  angle = math.angle (165, 400, (mouse_x + 25), (mouse_y + 25)) 
+  angle = math.angle (markerX, markerY, pumpkinRageX, pumpkinRageY) 
   angle = angle + math.pi*.5
   
   -- calculate angle from enemy to player
   
-  pumkinAngle = math.angle(pumpkinRageX, pumpkinRageY, (mouse_x + 25), (mouse_y + 25))
+  pumkinAngle = math.angle(pumpkinRageX, pumpkinRageY, markerX, markerY)
    -- work out how much x and y will change in this step
    -- math.cos and math.sin will be between -1 and +1
    -- multiplying by (dt*speed) means the enemy will move speed pixels in one whole second
@@ -193,7 +213,7 @@ function love.update(dt)
   --pumpkinMaleY      = pumpkinMaleY    + 1
   --pumpkinRageY      = pumpkinRageY    + 1
   
-  --[[if pumpkinChompY > 640 then
+  if pumpkinChompY > 640 then
     pumpkinChompY   = math.random(-50, 10)
     pumpkinChompX   = math.random(-100, 460)    
   elseif pumpkinFemaleY > 640 then
@@ -206,8 +226,7 @@ function love.update(dt)
     pumpkinMaleY    = math.random(-50, 10)
     pumpkinMaleX    = math.random(-100, 460) 
     
-  ]]--
-  if pumpkinRageY > 640 then
+  elseif pumpkinRageY > 640 then
     pumpkinRageY    = math.random(-50, 10)
     pumpkinRageX    = math.random(-100, 460)
   end
