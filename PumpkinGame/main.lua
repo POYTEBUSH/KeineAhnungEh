@@ -6,7 +6,7 @@ function love.load()
     math.randomseed(os.time())    
   
 		-- Game States --
-			gameState = "game"
+			gameState = "menu"
       
 		-- Score -- 
 			score = 0
@@ -16,7 +16,9 @@ function love.load()
       
 		-- Fonts --
       font = love.graphics.newFont("Fonts/advanced_pixel-7.ttf", 15)
-      Scorefont = love.graphics.newFont("Fonts/deathrattlebb_reg.ttf", 40)
+      menuFont1 = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 40)
+      menuFont2 = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 39)
+      Scorefont = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 30)
       
 		-- Audio --    
 			--local Music = love.audio.newSource('Audio/GB.mp3')
@@ -27,6 +29,9 @@ function love.load()
  			-- Background --        
  				background1 = love.graphics.newImage("Sprites/bg1.png")        
         backgroundQuad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
+        
+        menuBackground = love.graphics.newImage("Sprites/menuBG.png")        
+        menuBackgroundQuad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
         
         sky1X = 1
         sky2X = 360
@@ -46,6 +51,7 @@ function love.load()
         pumpking          = love.graphics.newImage("Sprites/pumpking_01.png") 
         pumpkinMale       = love.graphics.newImage("Sprites/pumpkinMale_01.png") 
         pumpkinRage       = love.graphics.newImage("Sprites/pumpkinRage_01.png") 
+        bigtroll          = love.graphics.newImage("Sprites/bigtroll.png") 
         
         pumpkinChompX     = math.random(-100, 460)
         pumpkinFemaleX    = math.random(-100, 460)
@@ -69,10 +75,12 @@ function love.load()
 
  			-- Main Menu UI --
 
- 			-- Menu UI --            
-        button_spawn(180, 200, "Start Game", "start")
-        button_spawn(180, 250, "Options", "options")
-        button_spawn(180, 300, "Quit Game", "quit")
+ 			-- Menu UI --     
+        love.graphics.setBackgroundColor(255, 255, 255)
+      
+        button_spawn(85, 200, "Start Game", "start")
+        button_spawn(110, 250, "Options", "options")
+        button_spawn(95, 300, "Quit Game", "quit")
 
  			-- Score UI --
       
@@ -103,7 +111,7 @@ function math.angle(x1, y1, x2, y2)
 end
 
 function game_menu()
-  love.graphics.draw(background1, backgroundQuad, 0, -1)
+  love.graphics.draw(menuBackground, menuBackgroundQuad, 0, -1)
   button_draw()
 end
 
@@ -134,6 +142,10 @@ end
 function love.update(dt)  
   mouse_x = love.mouse.getX()
   mouse_y = love.mouse.getY()  
+  
+  if gameState == "menu" then
+    button_check()
+  end
   
   -- For Debug --
   score = score + 1
