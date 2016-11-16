@@ -1,4 +1,18 @@
-function game_screen()
+require "characterMenu"
+-- Pumpkins --   
+
+-- Score -- 
+	score = 0
+  scoreDisplay = {}
+  scoreDisplay.x = 0
+ 	scoreDisplay.y = 0        
+        
+function game_screen(pumpkinType)  
+  chosenPumkin = pumpkinType
+  pumpkin = love.graphics.newImage("Sprites/".. chosenPumkin.. "_01.png")
+
+  print(pumpkinType)
+
   love.graphics.setFont(font)
   love.mouse.setVisible(false)
   
@@ -13,11 +27,7 @@ function game_screen()
   love.graphics.print(score, scoreX, 15)
   love.graphics.setFont(font)
     
-  --love.graphics.draw(pumpkinChomp, pumpkinChompX, pumpkinChompY)
-  --love.graphics.draw(pumpkinFemale, pumpkinFemaleX, pumpkinFemaleY)
-  --love.graphics.draw(pumpking, pumpkingX, pumpkingY)
-  --love.graphics.draw(pumpkinMale, pumpkinMaleX, pumpkinMaleY)
-  love.graphics.draw(pumpkinRage, pumpkinRageX, pumpkinRageY)
+  love.graphics.draw(pumpkin, pumpkinX, pumpkinY)
   
   love.graphics.draw(playerHand, mouse_x, mouse_y)
   love.graphics.draw(cauldron, 40, 450)
@@ -26,11 +36,10 @@ function game_screen()
   
   -- Debug -- 
   love.graphics.print( "Mouse X: ".. mouse_x .. " Mouse Y: " .. mouse_y, 10, 10 )
-  love.graphics.print( "Sky1X: " .. sky1X, 10, 25 )
-  love.graphics.print( "Sky2X: " .. sky2X, 10, 40 )
-  love.graphics.print( "Game State: " .. gameState, 10, 70 )
-  love.graphics.print( "Pumkin Locations: " .. pumpkinChompX .. " " .. pumpkinFemaleX ..  " " .. pumpkingX ..  " " .. pumpkinMaleX ..  " " .. pumpkinRageX, 10, 85 )
-  love.graphics.print( "Pumpkin Female Y: " .. pumpkinFemaleY, 10, 100 )
+  love.graphics.print( "Sky1X: " .. sky1X, 10, 15 )
+  love.graphics.print( "Sky2X: " .. sky2X, 10, 20 )
+  love.graphics.print( "Game State: " .. gameState, 10, 25 )
+  love.graphics.print( "Pumkin Chosen: " .. chosenPumkin, 10, 30 )
   
   sky1X = sky1X - 1
   sky2X = sky2X - 1
@@ -42,10 +51,10 @@ function game_screen()
     sky2X = 360
   end  
   
-  hitTest1 = CheckCollision(pumpkinRageX, pumpkinRageY, 50, 50, markerX, markerY, 30, 30)
+  hitTest1 = CheckCollision(pumpkinX, pumpkinY, 50, 50, markerX, markerY, 30, 30)
     if(hitTest1) then
-      pumpkinRageY    = math.random(-50, 10)
-      pumpkinRageX    = math.random(-100, 460)
+      pumpkinY    = math.random(-50, 10)
+      pumpkinX    = math.random(-100, 460)
       score           = score - 100
     end
 end

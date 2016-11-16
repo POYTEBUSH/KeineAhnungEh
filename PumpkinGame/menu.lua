@@ -11,12 +11,10 @@ function button_draw()
       love.graphics.setFont(menuFont2)
     end
     if v.mouseover == true then
-      love.graphics.draw(bigtroll, 60, 150)
       love.graphics.setColor(204, 62, 0)
       love.graphics.setFont(menuFont1)      
     end
     
-    --love.graphics.setFont(menuFont1)
     love.graphics.print(v.text, v.x, v.y)
     love.graphics.setColor(255,255,255)
   end
@@ -31,7 +29,11 @@ function button_click(x, y)
         if v.id == "quit" then
           love.event.push("quit")
         elseif v.id == "start" then
-          gameState = "game" 
+          gameState = "game"
+        elseif v.id == "options" then
+          gameState = "options"   
+        elseif v.id == "characterSelect" then
+          gameState = "characterSelect"
         end
     end  
   end
