@@ -7,90 +7,111 @@ require "characterMenu"
 
 function love.load()
 	-- Load --
-    math.randomseed(os.time())      
-    pumpkinSet = "pumpkinMale"        
+    math.randomseed(os.time())
+    pumpkinSet = "pumpkinMale"
   
-		-- Game States --
-			gameState = "menu"
+	-- Game States --
+		gameState = "menu"
+    --
       
-		-- Fonts --
-      font = love.graphics.newFont("Fonts/advanced_pixel-7.ttf", 15)
-      menuFont1 = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 40)
-      menuFont2 = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 39)
-      Scorefont = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 30)
+	-- Fonts --
+    font = {}
+    font.normal = love.graphics.newFont("Fonts/advanced_pixel-7.ttf", 15)
+    font.menu1 = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 40)
+    font.menu2 = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 39)
+    font.score = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 30)
       
-		-- Audio --    
-			--local Music = love.audio.newSource('Audio/GB.mp3')
-  		--Music:setLooping(true)
- 			--Music:play()
+	-- Audio --    
+		--local Music = love.audio.newSource('Audio/GB.mp3')
+  	--Music:setLooping(true)
+ 		--Music:play()
       
-    -- Sprites --
- 			-- Background --        
- 				background1 = love.graphics.newImage("Sprites/bg1.png")        
-        backgroundQuad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
+  -- Sprites --
+ 		-- Background --
+      background = {}
+      background.one = {}
+ 			background.one.sprite = love.graphics.newImage("Sprites/bg1.png")        
+      background.one.quad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
         
-        menuBackground = love.graphics.newImage("Sprites/menuBG.png")        
-        menuBackgroundQuad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
-        
-        sky1X = 1
-        sky2X = 360
-        skyY  = 1
-        
-        sky              = love.graphics.newImage("Sprites/sky.png") 
-        sky1             = love.graphics.newImage("Sprites/sky1.png") 
-        sky2             = love.graphics.newImage("Sprites/sky2.png") 
-        
- 			-- Player --
-        playerHand        = love.graphics.newImage("Sprites/playerHand.png")
-        cauldron          = love.graphics.newImage("Sprites/Cauldron.png")
-        
-        angle = 0 
-        pumpkinAngle = 0
-        speed = 100
-        
-        pumpkinChomp      = love.graphics.newImage("Sprites/pumpkinChomp_01.png") 
-        pumpkinFemale     = love.graphics.newImage("Sprites/pumpkinFemale_01.png") 
-        pumpking          = love.graphics.newImage("Sprites/pumpking_01.png") 
-        pumpkinMale       = love.graphics.newImage("Sprites/pumpkinMale_01.png") 
-        pumpkinRage       = love.graphics.newImage("Sprites/pumpkinRage_01.png") 
-        
-        pumpkinX     = math.random(-100, 460)        
-        pumpkinY     = math.random(-50, 10)
-                
-        marker = love.graphics.newImage("Sprites/marker.png")
-        markerX = 180
-        markerY = 450
+      background.menu = {}
+      background.menu.sprite = love.graphics.newImage("Sprites/menuBG.png")        
+      background.menu.quad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
+      
+      background.sky = {}
+      background.sky.sprite1 = love.graphics.newImage("Sprites/sky.png") 
+      background.sky.sprite2 = love.graphics.newImage("Sprites/sky1.png") 
+      background.sky.sprite3 = love.graphics.newImage("Sprites/sky2.png") 
 
- 			-- Menu UI --     
-        love.graphics.setBackgroundColor(255, 255, 255)
+      sky1X = 1
+      sky2X = 360
+      skyY  = 1
+        
+ 		-- Player --
+      playerHand = love.graphics.newImage("Sprites/playerHand.png")
+      cauldron = love.graphics.newImage("Sprites/Cauldron.png")
+      angle = 0 
+
+    -- Pumpkins -- 
+      pumpkin = {}
+      pumpkin.speed = 100
+      pumpkin.angle = 0
+      pumpkin.X = math.random(-100, 460) 
+      pumpkin.Y = math.random(-50, 10)
+      pumpkin.W = 50
+      pumpkin.H = 50
       
-        button_spawn(85, 200, "Start Game", "start")
-        button_spawn(30, 250, "Choose Character", "characterSelect")
-        button_spawn(110, 300, "Options", "options")
-        button_spawn(95, 350, "Quit Game", "quit")        
+      -- Chomp --
+        pumpkin.Chomp = {}
+        pumpkin.Chomp.sprite = love.graphics.newImage("Sprites/pumpkinChomp_01.png")
+      -- Female ---
+        pumpkin.Female = {}
+        pumpkin.Female.sprite = love.graphics.newImage("Sprites/pumpkinFemale_01.png")
+      -- King --
+        pumpkin.King = {}
+        pumpkin.King.sprite = love.graphics.newImage("Sprites/pumpking_01.png")
+      -- Male --
+        pumpkin.Male = {}
+        pumpkin.Male.sprite = love.graphics.newImage("Sprites/pumpkinMale_01.png")
+      -- Rage --
+        pumpkin.Rage = {}
+        pumpkin.Rage.sprite = love.graphics.newImage("Sprites/pumpkinRage_01.png")
+    
+    -- Marker --
+      marker = {}
+      marker.sprite = love.graphics.newImage("Sprites/marker.png")
+      marker.X = 180
+      marker.Y = 450
+      marker.W = 30
+      marker.H = 30
+
+ 		-- Menu UI --     
+      love.graphics.setBackgroundColor(255, 255, 255)
+      
+      button_spawn(85, 200, "Start Game", "start")
+      button_spawn(30, 250, "Choose Character", "characterSelect")
+      button_spawn(110, 300, "Options", "options")
+      button_spawn(95, 350, "Quit Game", "quit")        
           
-        optionsbutton_spawn(90, 200, "Difficulty", "boom")
-        optionsbutton_spawn(105, 250, "Pumpkin", "options")
-        optionsbutton_spawn(135, 300, "Back", "back")
-        optionsbutton_spawn(135, 350, "Test", "test")
-        
-        charbutton_spawn(85, 165, "Chomp", "chomp")
-        charbutton_spawn(85, 215, "M' Lady", "lady")
-        charbutton_spawn(85, 265, "Pumpking", "pumpking")
-        charbutton_spawn(85, 315, "Happy Dude", "happy")
-        charbutton_spawn(85, 365, "Captain Salt", "salt")
-        
-      -- Score UI --
+      optionsbutton_spawn(90, 200, "Difficulty", "boom")
+      optionsbutton_spawn(105, 250, "Pumpkin", "options")
+      optionsbutton_spawn(135, 300, "Back", "back")
+      optionsbutton_spawn(135, 350, "Test", "test")
       
-       	lives = love.graphics.newImage("Sprites/lives1.png")        
-        score = 0
-        scoreX = 200
+      charbutton_spawn(85, 165, "Chomp", "chomp")
+      charbutton_spawn(85, 215, "M' Lady", "lady")
+      charbutton_spawn(85, 265, "Pumpking", "pumpking")
+      charbutton_spawn(85, 315, "Happy Dude", "happy")
+      charbutton_spawn(85, 365, "Captain Salt", "salt")
+        
+    -- Score --
+      lives = love.graphics.newImage("Sprites/lives1.png") 
+      --
 
- 			-- Game Over UI --
-
+ 		-- Game Over UI --
+    
 end
 
-function love.draw()  
+function love.draw()
   if gameState == "game" then 
     game_screen(pumpkinSet)
     
@@ -105,7 +126,7 @@ function love.draw()
     
   elseif gameState == "gameover" then
     love.graphics.print( "Mouse X: ".. mouse_x .. " Mouse Y: " .. mouse_y .. " Mouse Clicks: " .. mouseclicks, 10, 10 )
-    love.graphics.print(score, 190, 218 )
+    love.graphics.print(score, 190, 218)
     game_over()
   end
 end
@@ -114,20 +135,18 @@ function math.angle(x1, y1, x2, y2)
   return math.atan2(y2 - y1, x2 - x1)
 end
 
+function CheckCollision(object1X,object1Y,object1W,object1H, object2X,object2Y,object2W,object2H)
+  return object1X < object2X + object2W and
+         object2X < object1X + object1W and
+         object1Y < object2Y + object2H and
+         object2Y < object1Y + object1H
+end
+
 function game_menu()
-  love.graphics.draw(menuBackground, menuBackgroundQuad, 0, -1)
+  love.graphics.draw(background.menu.sprite, background.menu.quad, 0, -1)
   love.graphics.print( "Gamestate: ".. gameState, 10, 10 )
   button_draw()
 end
-
-function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
-  return x1 < x2+w2 and
-         x2 < x1+w1 and
-         y1 < y2+h2 and
-         y2 < y1+h1
-end
-
-
 
 function love.keypressed(key)
    if key == "tab" then
@@ -149,6 +168,7 @@ function love.mousepressed(x, y)
     charbutton_click(x, y)
   end
 end
+
 function love.update(dt)  
   mouse_x = love.mouse.getX()
   mouse_y = love.mouse.getY()  
@@ -162,40 +182,36 @@ function love.update(dt)
   end
   
   -- For Debug --
-  score = score + 1
+  score.value = score.value + 1
   love.graphics.rotate( 1 )
   
-  angle = math.angle (markerX, markerY, pumpkinX, pumpkinY) 
+  angle = math.angle (marker.X, marker.Y, pumpkin.X, pumpkin.Y) 
   angle = angle + math.pi*.5
   
   -- calculate angle from enemy to player
   
-  pumkinAngle = math.angle(pumpkinX, pumpkinY, markerX, markerY)
+  pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, marker.X, marker.Y)
    -- work out how much x and y will change in this step
    -- math.cos and math.sin will be between -1 and +1
-   -- multiplying by (dt*speed) means the enemy will move speed pixels in one whole second
-   local dx = math.cos(pumkinAngle) * (dt * speed)
-   local dy = math.sin(pumkinAngle) * (dt * speed)
+   -- multiplying by (dt*pumpkin.speed) means the enemy will move speed pixels in one whole second
+   local dx = math.cos(pumpkin.angle) * (dt * pumpkin.speed)
+   local dy = math.sin(pumpkin.angle) * (dt * pumpkin.speed)
    -- move to our new x and y
-   pumpkinX = pumpkinX + dx
-   pumpkinY = pumpkinY + dy
+   pumpkin.X = pumpkin.X + dx
+   pumpkin.Y = pumpkin.Y + dy
   
   -- To stop the score text overlaping the lives sprites --
-  if score >= 10 then
-    scoreX = 185
+  if score.value >= 10 then
+    score.X = 185
   end
-  
-  if score >= 100 then
-    scoreX = 170
+  if score.value >= 100 then
+    score.X = 170
   end
-  
-  if score >= 1000 then
-    scoreX = 150
+  if score.value >= 1000 then
+    score.X = 150
   end
-
-  if pumpkinY > 640 then
-    pumpkinY    = math.random(-50, 10)
-    pumpkinX    = math.random(-100, 460)
+  if pumpkin.Y > 640 then
+    pumpkin.Y = math.random(-50, 10)
+    pumpkin.X = math.random(-100, 460)
   end
-  
 end

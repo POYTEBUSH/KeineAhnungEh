@@ -5,14 +5,14 @@ function button_spawn(x, y, text, id)
 end
 
 function button_draw()
-  for i, v in ipairs(button) do    
+  for i, v in ipairs(button) do
     if v.mouseover == false then
       love.graphics.setColor(255, 77, 0)
-      love.graphics.setFont(menuFont2)
+      love.graphics.setFont(font.menu2)
     end
     if v.mouseover == true then
       love.graphics.setColor(204, 62, 0)
-      love.graphics.setFont(menuFont1)      
+      love.graphics.setFont(font.menu2)      
     end
     
     love.graphics.print(v.text, v.x, v.y)
@@ -23,9 +23,9 @@ end
 function button_click(x, y)
   for i, v in ipairs(button) do
     if x > v.x and
-      x < v.x + Scorefont:getWidth(v.text) and
+      x < v.x + font.score:getWidth(v.text) and
       y > v.y and 
-      y < v.y + Scorefont:getHeight() then
+      y < v.y + font.score:getHeight() then
         if v.id == "quit" then
           love.event.push("quit")
         elseif v.id == "start" then
@@ -42,9 +42,9 @@ end
 function button_check()
   for i, v in ipairs(button) do
     if mouse_x > v.x and
-      mouse_x < v.x + Scorefont:getWidth(v.text) and
+      mouse_x < v.x + font.score:getWidth(v.text) and
       mouse_y > v.y and 
-      mouse_y < v.y + Scorefont:getHeight() then
+      mouse_y < v.y + font.score:getHeight() then
         v.mouseover = true
       else 
         v.mouseover = false

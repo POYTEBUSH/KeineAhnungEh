@@ -2,37 +2,39 @@ require "characterMenu"
 -- Pumpkins --   
 
 -- Score -- 
-	score = 0
-  scoreDisplay = {}
-  scoreDisplay.x = 0
- 	scoreDisplay.y = 0        
+	score = {}      
+  score.value = 0
+  score.display = {}
+  score.display.x = 0
+  score.display.y = 0       
         
 function game_screen(pumpkinType)  
   chosenPumkin = pumpkinType
-  pumpkin = love.graphics.newImage("Sprites/".. chosenPumkin.. "_01.png")
+  pumpkinSprite = love.graphics.newImage("Sprites/".. chosenPumkin.. "_01.png")
 
   print(pumpkinType)
 
-  love.graphics.setFont(font)
+  love.graphics.setFont(font.normal)
   love.mouse.setVisible(false)
   
-  love.graphics.draw(sky1, sky1X, skyY)
-  love.graphics.draw(sky2, sky2X, skyY)
-  love.graphics.draw(background1, backgroundQuad, 0, -1)
+  love.graphics.draw(background.sky.sprite1, sky1X, skyY)
+  love.graphics.draw(background.sky.sprite2, sky2X, skyY)
+  love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
   
-  live1 = love.graphics.draw(lives, 310, 10)
-  live2 = love.graphics.draw(lives, 270, 10)
-  live3 = love.graphics.draw(lives, 230, 10)
-  love.graphics.setFont(Scorefont)
-  love.graphics.print(score, scoreX, 15)
-  love.graphics.setFont(font)
+  life = {}
+  life.one = love.graphics.draw(lives, 310, 10)
+  life.two = love.graphics.draw(lives, 270, 10)
+  life.three = love.graphics.draw(lives, 230, 10)
+  love.graphics.setFont(font.score)
+  love.graphics.print(score.value, score.X, 15)
+  love.graphics.setFont(font.normal)
     
-  love.graphics.draw(pumpkin, pumpkinX, pumpkinY)
+  love.graphics.draw(pumpkinSprite, pumpkin.X, pumpkin.Y)
   
   love.graphics.draw(playerHand, mouse_x, mouse_y)
   love.graphics.draw(cauldron, 40, 450)
   
-  love.graphics.draw(marker, markerX, markerY, angle, 1, 1, 15, 15)
+  love.graphics.draw(marker.sprite, marker.X, marker.Y, angle, 1, 1, 15, 15)
   
   -- Debug -- 
   love.graphics.print( "Mouse X: ".. mouse_x .. " Mouse Y: " .. mouse_y, 10, 10 )
@@ -51,10 +53,10 @@ function game_screen(pumpkinType)
     sky2X = 360
   end  
   
-  hitTest1 = CheckCollision(pumpkinX, pumpkinY, 50, 50, markerX, markerY, 30, 30)
+  hitTest1 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)
     if(hitTest1) then
-      pumpkinY    = math.random(-50, 10)
-      pumpkinX    = math.random(-100, 460)
-      score           = score - 100
+      pumpkin.Y = math.random(-50, 10)
+      pumpkin.X = math.random(-100, 460)
+      score.value = score.value - 100
     end
 end

@@ -8,11 +8,11 @@ function optionsbutton_draw()
   for i, v in ipairs(optionsbutton) do 
     if v.mouseover1 == false then
       love.graphics.setColor(255, 77, 0)
-      love.graphics.setFont(menuFont2)
+      love.graphics.setFont(font.menu2)
     end
     if v.mouseover1 == true then
       love.graphics.setColor(204, 62, 0)
-      love.graphics.setFont(menuFont1)      
+      love.graphics.setFont(font.menu1)      
     end
     
     love.graphics.print(v.text, v.x, v.y)
@@ -23,9 +23,9 @@ end
 function optionsbutton_click(x, y)
   for i, v in ipairs(optionsbutton) do
     if x > v.x and
-      x < v.x + Scorefont:getWidth(v.text) and
+      x < v.x + font.score:getWidth(v.text) and
       y > v.y and 
-      y < v.y + Scorefont:getHeight() then
+      y < v.y + font.score:getHeight() then
         if v.id == "back" then
           gameState = "menu"
         elseif v.id == "test" then
@@ -40,9 +40,9 @@ end
 function optionsbutton_check()
   for i, v in ipairs(optionsbutton) do
     if mouse_x > v.x and
-      mouse_x < v.x + Scorefont:getWidth(v.text) and
+      mouse_x < v.x + font.score:getWidth(v.text) and
       mouse_y > v.y and 
-      mouse_y < v.y + Scorefont:getHeight() then
+      mouse_y < v.y + font.score:getHeight() then
         v.mouseover1 = true
       else 
         v.mouseover1 = false
