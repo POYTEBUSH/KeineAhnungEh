@@ -18,7 +18,9 @@ function game_screen(pumpkinType)
   love.mouse.setVisible(false)
   
   love.graphics.draw(background.sky.sprite1, sky1X, skyY)
-  love.graphics.draw(background.sky.sprite2, sky2X, skyY)
+  love.graphics.draw(background.sky.sprite1, sky2X, skyY)
+  love.graphics.draw(background.hills.sprite1, hills1X, hillsY)
+  love.graphics.draw(background.hills.sprite1, hills2X, hillsY)
   love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
   
   life = {}
@@ -45,12 +47,19 @@ function game_screen(pumpkinType)
   
   sky1X = sky1X - 1
   sky2X = sky2X - 1
+  hills1X = hills1X -1
+  hills2X = hills2X -1  
   
   if sky1X <= -360 then
-    sky1X = 360
-  
+    sky1X = 360  
   elseif sky2X <= -360 then
     sky2X = 360
+  end 
+  
+    if hills1X <= -360 then
+    hills1X = 360  
+  elseif hills2X <= -360 then
+    hills2X = 360
   end  
   
   hitTest1 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)

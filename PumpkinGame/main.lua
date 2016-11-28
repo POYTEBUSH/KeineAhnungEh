@@ -39,12 +39,16 @@ function love.load()
       
       background.sky = {}
       background.sky.sprite1 = love.graphics.newImage("Sprites/sky.png") 
-      background.sky.sprite2 = love.graphics.newImage("Sprites/sky1.png") 
-      background.sky.sprite3 = love.graphics.newImage("Sprites/sky2.png") 
+      
+      background.hills = {}
+      background.hills.sprite1 = love.graphics.newImage("Sprites/hills.png") 
 
       sky1X = 1
       sky2X = 360
       skyY  = 1
+      hills1X = 1
+      hills2X = 360
+      hillsY = 50
         
  		-- Player --
       playerHand = love.graphics.newImage("Sprites/playerHand.png")
