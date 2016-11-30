@@ -12,16 +12,18 @@ function game_screen(pumpkinType)
   chosenPumkin = pumpkinType
   pumpkinSprite = love.graphics.newImage("Sprites/".. chosenPumkin.. "_01.png")
 
-  print(pumpkinType)
+  --print(pumpkinType)
 
   love.graphics.setFont(font.normal)
   love.mouse.setVisible(false)
   
   love.graphics.draw(background.sky.sprite1, sky1X, skyY)
   love.graphics.draw(background.sky.sprite1, sky2X, skyY)
-  love.graphics.draw(background.hills.sprite1, hills1X, hillsY)
-  love.graphics.draw(background.hills.sprite1, hills2X, hillsY)
-  love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
+  love.graphics.draw(background.trees.sprite1, btree1X, btreeY)
+  love.graphics.draw(background.trees.sprite1, btree2X, btreeY)
+  love.graphics.draw(background.fence.sprite1, fence1X, fenceY)
+  love.graphics.draw(background.fence.sprite1, fence2X, fenceY)
+  --love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
   
   life = {}
   life.one = love.graphics.draw(lives, 310, 10)
@@ -45,21 +47,29 @@ function game_screen(pumpkinType)
   love.graphics.print( "Game State: " .. gameState, 10, 25 )
   love.graphics.print( "Pumkin Chosen: " .. chosenPumkin, 10, 30 )
   
-  sky1X = sky1X - 1
-  sky2X = sky2X - 1
-  hills1X = hills1X -1
-  hills2X = hills2X -1  
+  sky1X   = sky1X - 0.6
+  sky2X   = sky2X - 0.6
+  btree1X = btree1X -0.5
+  btree2X = btree2X -0.5
+  fence1X = fence1X +0.2
+  fence2X = fence2X +0.2
   
-  if sky1X <= -360 then
+  if sky1X <= -365 then
     sky1X = 360  
-  elseif sky2X <= -360 then
+  elseif sky2X <= -365 then
     sky2X = 360
   end 
   
-    if hills1X <= -360 then
-    hills1X = 360  
-  elseif hills2X <= -360 then
-    hills2X = 360
+  if btree1X <= -360 then
+    btree1X = 360  
+  elseif btree2X <= -360 then
+    btree2X = 360
+  end  
+  
+  if fence1X >= 365 then
+    fence1X = -360  
+  elseif fence2X >= 365 then
+    fence2X = -360
   end  
   
   hitTest1 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)

@@ -40,15 +40,24 @@ function love.load()
       background.sky = {}
       background.sky.sprite1 = love.graphics.newImage("Sprites/sky.png") 
       
-      background.hills = {}
-      background.hills.sprite1 = love.graphics.newImage("Sprites/hills.png") 
+      background.trees = {}
+      background.trees.sprite1 = love.graphics.newImage("Sprites/tree1.png") 
+      --background.trees.sprite2 = love.graphics.newImage("Sprites/tree2.png")
+      
+      background.fence = {}
+      background.fence.sprite1 = love.graphics.newImage("Sprites/fence.png") 
 
-      sky1X = 1
+      sky1X = 0
       sky2X = 360
       skyY  = 1
-      hills1X = 1
-      hills2X = 360
-      hillsY = 50
+      
+      btree1X = 0
+      btree2X = 360
+      btreeY = 15
+      
+      fence1X = 0
+      fence2X = 360
+      fenceY = 250
         
  		-- Player --
       playerHand = love.graphics.newImage("Sprites/playerHand.png")
@@ -93,8 +102,8 @@ function love.load()
       
       button_spawn(85, 200, "Start Game", "start")
       button_spawn(30, 250, "Choose Character", "characterSelect")
-      button_spawn(110, 300, "Options", "options")
-      button_spawn(95, 350, "Quit Game", "quit")        
+      --button_spawn(110, 300, "Options", "options")
+      button_spawn(95, 300, "Quit Game", "quit")        
           
       optionsbutton_spawn(90, 200, "Difficulty", "boom")
       optionsbutton_spawn(105, 250, "Pumpkin", "options")
