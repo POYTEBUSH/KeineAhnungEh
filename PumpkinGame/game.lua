@@ -17,10 +17,14 @@ function game_screen(pumpkinType)
   love.graphics.setFont(font.normal)
   love.mouse.setVisible(false)
   
-  love.graphics.draw(background.sky.sprite1, sky1X, skyY)
-  love.graphics.draw(background.sky.sprite1, sky2X, skyY)
-  love.graphics.draw(background.trees.sprite1, btree1X, btreeY)
-  love.graphics.draw(background.trees.sprite1, btree2X, btreeY)
+  love.graphics.draw(background.sky.sprite1, background.sky.x1, background.sky.Y)
+  love.graphics.draw(background.sky.sprite1, background.sky.x2, background.sky.Y)
+  love.graphics.draw(background.sky.sprite2, background.sky.bhills1x, background.sky.bhillsY)
+  love.graphics.draw(background.sky.sprite2, background.sky.bhills2x, background.sky.bhillsY)
+  love.graphics.draw(background.sky.sprite3, background.sky.hills1x, background.sky.hillsY)
+  love.graphics.draw(background.sky.sprite3, background.sky.hills2x, background.sky.hillsY)
+  --love.graphics.draw(background.trees.sprite1, btree1X, btreeY)
+  --love.graphics.draw(background.trees.sprite1, btree2X, btreeY)
   love.graphics.draw(background.fence.sprite1, fence1X, fenceY)
   love.graphics.draw(background.fence.sprite1, fence2X, fenceY)
   --love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
@@ -33,11 +37,9 @@ function game_screen(pumpkinType)
   love.graphics.print(score.value, score.X, 15)
   love.graphics.setFont(font.normal)
     
-  love.graphics.draw(pumpkinSprite, pumpkin.X, pumpkin.Y)
-  
+  love.graphics.draw(pumpkinSprite, pumpkin.X, pumpkin.Y)  
   love.graphics.draw(playerHand, mouse_x, mouse_y)
-  love.graphics.draw(cauldron, 40, 450)
-  
+  love.graphics.draw(cauldron, 40, 450)  
   love.graphics.draw(marker.sprite, marker.X, marker.Y, angle, 1, 1, 15, 15)
   
   -- Debug -- 
@@ -47,29 +49,37 @@ function game_screen(pumpkinType)
   love.graphics.print( "Game State: " .. gameState, 10, 25 )
   love.graphics.print( "Pumkin Chosen: " .. chosenPumkin, 10, 30 )
   
-  sky1X   = sky1X - 0.6
-  sky2X   = sky2X - 0.6
-  btree1X = btree1X -0.5
-  btree2X = btree2X -0.5
-  fence1X = fence1X +0.2
-  fence2X = fence2X +0.2
+  background.sky.x1   = background.sky.x1 - 0.6
+  background.sky.x2   = background.sky.x2 - 0.6
+  background.sky.bhills1x = background.sky.bhills1x -0.5
+  background.sky.bhills2x = background.sky.bhills2x -0.5
+    background.sky.hills1x = background.sky.hills1x -0.4
+  background.sky.hills2x = background.sky.hills2x -0.4
+  fence1X = fence1X -0.2
+  fence2X = fence2X -0.2
   
-  if sky1X <= -365 then
-    sky1X = 360  
-  elseif sky2X <= -365 then
-    sky2X = 360
+  if background.sky.x1 <= -600 then
+    background.sky.x1 = 600  
+  elseif background.sky.x2 <= -600 then
+    background.sky.x2 = 600
   end 
   
-  if btree1X <= -360 then
-    btree1X = 360  
-  elseif btree2X <= -360 then
-    btree2X = 360
+  if background.sky.bhills1x <= -600 then
+    background.sky.bhills1x = 600  
+  elseif background.sky.bhills2x <= -600 then
+    background.sky.bhills2x = 600
   end  
   
-  if fence1X >= 365 then
-    fence1X = -360  
-  elseif fence2X >= 365 then
-    fence2X = -360
+  if background.sky.hills1x <= -600 then
+    background.sky.hills1x = 600  
+  elseif background.sky.hills2x <= -600 then
+    background.sky.hills2x = 600
+  end  
+  
+  if fence1X <= -365 then
+    fence1X = 360  
+  elseif fence2X <= -365 then
+    fence2X = 360
   end  
   
   hitTest1 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)

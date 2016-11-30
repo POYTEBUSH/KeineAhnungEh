@@ -38,7 +38,18 @@ function love.load()
       background.menu.quad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
       
       background.sky = {}
-      background.sky.sprite1 = love.graphics.newImage("Sprites/sky.png") 
+      background.sky.sprite1 = love.graphics.newImage("Sprites/sky1.png") 
+      background.sky.sprite2 = love.graphics.newImage("Sprites/hills.png") 
+      background.sky.sprite3 = love.graphics.newImage("Sprites/hills1.png") 
+      background.sky.x1       = 0
+      background.sky.x2       = 600
+      background.sky.y        = 1
+      background.sky.bhills1x = 0
+      background.sky.bhills2x = 600
+      background.sky.bhillsY  = 100
+      background.sky.hills1x  = 0
+      background.sky.hills2x  = 600
+      background.sky.hillsY   = 15
       
       background.trees = {}
       background.trees.sprite1 = love.graphics.newImage("Sprites/tree1.png") 
@@ -48,7 +59,7 @@ function love.load()
       background.fence.sprite1 = love.graphics.newImage("Sprites/fence.png") 
 
       sky1X = 0
-      sky2X = 360
+      sky2X = 600
       skyY  = 1
       
       btree1X = 0
@@ -112,7 +123,7 @@ function love.load()
       
       charbutton_spawn(85, 165, "Chomp", "chomp")
       charbutton_spawn(85, 215, "M' Lady", "lady")
-      charbutton_spawn(85, 265, "Pumpking", "pumpking")
+      charbutton_spawn(85, 265, "Pumpking", "pumpkinKing")
       charbutton_spawn(85, 315, "Happy Dude", "happy")
       charbutton_spawn(85, 365, "Captain Salt", "salt")
         

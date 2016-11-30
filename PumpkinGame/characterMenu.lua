@@ -33,7 +33,7 @@ function charbutton_click(x, y)
           pumpkinSet = "pumpkinFemale"
           gameState = "game"
         elseif v.id == "pumpkinKing" then
-          pumpkinSet = "pumpkinKing"
+          pumpkinSet = "pumpking"
           gameState = "game"
         elseif v.id == "happy" then
           pumpkinSet = "pumpkinMale"
