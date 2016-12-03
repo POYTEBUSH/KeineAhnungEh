@@ -23,6 +23,8 @@ function game_screen(pumpkinType)
   love.graphics.draw(background.sky.sprite2, background.sky.bhills2x, background.sky.bhillsY)
   love.graphics.draw(background.sky.sprite3, background.sky.hills1x, background.sky.hillsY)
   love.graphics.draw(background.sky.sprite3, background.sky.hills2x, background.sky.hillsY)
+  love.graphics.draw(background.sky.sprite4, background.sky.fhills1x, background.sky.fhillsY)
+  love.graphics.draw(background.sky.sprite4, background.sky.fhills2x, background.sky.fhillsY)
   --love.graphics.draw(background.trees.sprite1, btree1X, btreeY)
   --love.graphics.draw(background.trees.sprite1, btree2X, btreeY)
   love.graphics.draw(background.fence.sprite1, fence1X, fenceY)
@@ -53,8 +55,10 @@ function game_screen(pumpkinType)
   background.sky.x2   = background.sky.x2 - 0.6
   background.sky.bhills1x = background.sky.bhills1x -0.5
   background.sky.bhills2x = background.sky.bhills2x -0.5
-    background.sky.hills1x = background.sky.hills1x -0.4
+  background.sky.hills1x = background.sky.hills1x -0.4
   background.sky.hills2x = background.sky.hills2x -0.4
+  background.sky.fhills1x = background.sky.fhills1x -0.3
+  background.sky.fhills2x = background.sky.fhills2x -0.3
   fence1X = fence1X -0.2
   fence2X = fence2X -0.2
   
@@ -76,11 +80,17 @@ function game_screen(pumpkinType)
     background.sky.hills2x = 600
   end  
   
+  if background.sky.fhills1x <= -600 then
+    background.sky.fhills1x = 600  
+  elseif background.sky.fhills2x <= -600 then
+    background.sky.fhills2x = 600
+  end 
+  
   if fence1X <= -365 then
     fence1X = 360  
   elseif fence2X <= -365 then
     fence2X = 360
-  end  
+  end 
   
   hitTest1 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)
     if(hitTest1) then

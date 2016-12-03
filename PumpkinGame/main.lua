@@ -38,9 +38,10 @@ function love.load()
       background.menu.quad = love.graphics.newQuad(1,1,720/2,1280/2,720/2,1280/2)
       
       background.sky = {}
-      background.sky.sprite1 = love.graphics.newImage("Sprites/sky1.png") 
+      background.sky.sprite1 = love.graphics.newImage("Sprites/sky.png") 
       background.sky.sprite2 = love.graphics.newImage("Sprites/hills.png") 
       background.sky.sprite3 = love.graphics.newImage("Sprites/hills1.png") 
+      background.sky.sprite4 = love.graphics.newImage("Sprites/hills2.png") 
       background.sky.x1       = 0
       background.sky.x2       = 600
       background.sky.y        = 1
@@ -50,6 +51,9 @@ function love.load()
       background.sky.hills1x  = 0
       background.sky.hills2x  = 600
       background.sky.hillsY   = 15
+      background.sky.fhills1x  = 0
+      background.sky.fhills2x  = 600
+      background.sky.fhillsY   = 15
       
       background.trees = {}
       background.trees.sprite1 = love.graphics.newImage("Sprites/tree1.png") 
@@ -68,7 +72,7 @@ function love.load()
       
       fence1X = 0
       fence2X = 360
-      fenceY = 250
+      fenceY = 225
         
  		-- Player --
       playerHand = love.graphics.newImage("Sprites/playerHand.png")
