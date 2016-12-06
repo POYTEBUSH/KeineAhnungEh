@@ -7,12 +7,12 @@ end
 function charbutton_draw()
   for i, v in ipairs(charbutton) do    
     if v.mouseover == false then
-      love.graphics.setColor(255, 77, 0)
+      love.graphics.setColor(77, 127, 97)
       love.graphics.setFont(font.menu2)
     end
     if v.mouseover == true then
-      love.graphics.setColor(204, 62, 0)
-      love.graphics.setFont(font.menu1)      
+      love.graphics.setColor(61, 99, 76)
+      love.graphics.setFont(font.menu2)      
     end
     
     love.graphics.print(v.text, v.x, v.y)
