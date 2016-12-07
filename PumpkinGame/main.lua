@@ -111,6 +111,16 @@ function love.load()
       marker.Y = 450
       marker.W = 30
       marker.H = 30
+      
+    -- Score -- 
+      score = {}      
+      score.value = 0
+      score.display = {}
+      score.display.x = 0
+      score.display.y = 0      
+      
+      life = {}  
+      life.value = 3       
 
  		-- Menu UI --     
       love.graphics.setBackgroundColor(255, 255, 255)
@@ -145,6 +155,8 @@ function love.draw()
     
   elseif gameState == "menu" then
     game_menu()
+    life.value = 3
+    love.mouse.setVisible(true)
   
   elseif gameState == "options" then
     game_options()
@@ -184,6 +196,10 @@ function love.keypressed(key)
    
   if key == "p" then
     gameState = "menu"
+  end
+  
+  if key == "=" then
+    life.value = life.value - 1
   end
 end
 

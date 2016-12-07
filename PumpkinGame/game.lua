@@ -1,13 +1,6 @@
 require "characterMenu"
 -- Pumpkins --   
 
--- Score -- 
-	score = {}      
-  score.value = 0
-  score.display = {}
-  score.display.x = 0
-  score.display.y = 0       
-        
 function game_screen(pumpkinType)  
   chosenPumkin = pumpkinType
   pumpkinSprite = love.graphics.newImage("Sprites/".. chosenPumkin.. "_01.png")
@@ -31,10 +24,18 @@ function game_screen(pumpkinType)
   love.graphics.draw(background.fence.sprite1, fence2X, fenceY)
   --love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
   
-  life = {}
-  life.one = love.graphics.draw(lives, 310, 10)
-  life.two = love.graphics.draw(lives, 270, 10)
-  life.three = love.graphics.draw(lives, 230, 10)
+  if (life.value == 3) then    
+    love.graphics.draw(lives, 310, 10)
+    love.graphics.draw(lives, 270, 10)
+    love.graphics.draw(lives, 230, 10)
+  elseif (life.value == 2) then
+    love.graphics.draw(lives, 310, 10)
+    love.graphics.draw(lives, 270, 10)
+  elseif (life.value == 1) then
+    love.graphics.draw(lives, 310, 10)
+  end
+
+  
   love.graphics.setFont(font.score)
   love.graphics.print(score.value, score.X, 15)
   love.graphics.setFont(font.normal)
@@ -86,6 +87,10 @@ function game_screen(pumpkinType)
     background.sky.fhills2x = 600
   end 
   
+  if life.value == 0 then
+    gameState = "menu"
+  end
+  
   if fence1X <= -365 then
     fence1X = 360  
   elseif fence2X <= -365 then
@@ -97,5 +102,6 @@ function game_screen(pumpkinType)
       pumpkin.Y = math.random(-50, 10)
       pumpkin.X = math.random(-100, 460)
       score.value = score.value - 100
+      life.value = life.value - 1
     end
 end
