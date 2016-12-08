@@ -41,6 +41,7 @@ function game_screen(pumpkinType)
   love.graphics.setFont(font.normal)
     
   love.graphics.draw(pumpkinSprite, pumpkin.X, pumpkin.Y)  
+  love.graphics.draw(pumpkinSprite, pumpkin.X2, pumpkin.Y2)
   love.graphics.draw(playerHand, mouse_x, mouse_y)
   love.graphics.draw(cauldron, 40, 450)  
   love.graphics.draw(marker.sprite, marker.X, marker.Y, angle, 1, 1, 15, 15)
@@ -101,7 +102,33 @@ function game_screen(pumpkinType)
     if(hitTest1) then
       pumpkin.Y = math.random(-50, 10)
       pumpkin.X = math.random(-100, 460)
+      pumpkin.bounce = 0
       score.value = score.value - 100
       life.value = life.value - 1
     end
+  hitTest1 = CheckCollision(pumpkin.X2,pumpkin.Y2,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)
+    if(hitTest1) then
+      pumpkin.Y2 = math.random(-50, 10)
+      pumpkin.X2 = math.random(-100, 460)
+      pumpkin.bounce2 = 0
+      score.value = score.value - 100
+      life.value = life.value - 1
+    end
+  -- Click to send back --
+  if pumpkin.bounce == 0 then
+    hitTest2 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, mouse_x,mouse_y,35,35)
+      if(hitTest2) then
+        pumpkin.speed = -300
+        pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, mouse_x, mouse_y)
+        pumpkin.bounce = 1
+      end
+  end
+  if pumpkin.bounce2 == 0 then
+    hitTest2 = CheckCollision(pumpkin.X2,pumpkin.Y2,pumpkin.W,pumpkin.H, mouse_x,mouse_y,35,35)
+      if(hitTest2) then
+        pumpkin.speed2 = -300
+        pumpkin.angle2 = math.angle(pumpkin.X2, pumpkin.Y2, mouse_x, mouse_y)
+        pumpkin.bounce2 = 1
+      end
+  end
 end

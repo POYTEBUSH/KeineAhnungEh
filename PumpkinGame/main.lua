@@ -4,8 +4,11 @@ require "optionsMenu"
 require "options"
 require "characterSelect"
 require "characterMenu"
+require "collison"
 
 function love.load()
+  start = 0
+  
 	-- Load --
     math.randomseed(os.time())
     pumpkinSet = "pumpkinMale"
@@ -81,10 +84,21 @@ function love.load()
 
     -- Pumpkins -- 
       pumpkin = {}
-      pumpkin.speed = 100
-      pumpkin.angle = 0
-      pumpkin.X = math.random(-100, 460) 
-      pumpkin.Y = math.random(-50, 10)
+      -- Bounce
+        pumpkin.bounce = 0
+        pumpkin.bounce2 = 0
+      -- Speed
+        pumpkin.speed = 200
+        pumpkin.speed2 = 200
+      -- Angle
+        pumpkin.angle = 0
+        pumpkin.angle2 = 0
+      -- X
+        pumpkin.X = math.random(-100, 460) 
+        pumpkin.X2 = math.random(-100, 460) 
+      -- Y
+        pumpkin.Y = math.random(-50, 10)
+        pumpkin.Y2 = math.random(-50, 10)
       pumpkin.W = 50
       pumpkin.H = 50
       
@@ -175,13 +189,6 @@ function math.angle(x1, y1, x2, y2)
   return math.atan2(y2 - y1, x2 - x1)
 end
 
-function CheckCollision(object1X,object1Y,object1W,object1H, object2X,object2Y,object2W,object2H)
-  return object1X < object2X + object2W and
-         object2X < object1X + object1W and
-         object1Y < object2Y + object2H and
-         object2Y < object1Y + object1H
-end
-
 function game_menu()
   love.graphics.draw(background.menu.sprite, background.menu.quad, 0, -1)
   love.graphics.print( "Gamestate: ".. gameState, 10, 10 )
@@ -233,16 +240,24 @@ function love.update(dt)
   angle = angle + math.pi*.5
   
   -- calculate angle from enemy to player
+  if start == 0 then
+    pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, marker.X, marker.Y)
+    pumpkin.angle2 = math.angle(pumpkin.X, pumpkin.Y, marker.X, marker.Y)
+    start = 1
+  end
   
-  pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, marker.X, marker.Y)
    -- work out how much x and y will change in this step
    -- math.cos and math.sin will be between -1 and +1
    -- multiplying by (dt*pumpkin.speed) means the enemy will move speed pixels in one whole second
    local dx = math.cos(pumpkin.angle) * (dt * pumpkin.speed)
+   local dx2 = math.cos(pumpkin.angle2) * (dt * pumpkin.speed2)
    local dy = math.sin(pumpkin.angle) * (dt * pumpkin.speed)
+   local dy2 = math.sin(pumpkin.angle2) * (dt * pumpkin.speed2)
    -- move to our new x and y
    pumpkin.X = pumpkin.X + dx
+   pumpkin.X2 = pumpkin.X2 + dx2
    pumpkin.Y = pumpkin.Y + dy
+   pumpkin.Y2= pumpkin.Y2 + dy2
   
   -- To stop the score text overlaping the lives sprites --
   if score.value >= 10 then
@@ -254,8 +269,26 @@ function love.update(dt)
   if score.value >= 1000 then
     score.X = 150
   end
+  
   if pumpkin.Y > 640 then
     pumpkin.Y = math.random(-50, 10)
     pumpkin.X = math.random(-100, 460)
+  elseif pumpkin.Y < -100 then
+    pumpkin.Y = math.random(-50, 10)
+    pumpkin.X = math.random(-100, 460)
+    pumpkin.speed = 200
+    pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, marker.X, marker.Y)
+    pumpkin.bounce = 0
+  end
+  
+  if pumpkin.Y2 > 640 then
+    pumpkin.Y2 = math.random(-50, 10)
+    pumpkin.X2 = math.random(-100, 460)
+  elseif pumpkin.Y2 < -100 then
+    pumpkin.Y2 = math.random(-50, 10)
+    pumpkin.X2 = math.random(-100, 460)
+    pumpkin.speed2 = 200
+    pumpkin.angle2 = math.angle(pumpkin.X2, pumpkin.Y2, marker.X, marker.Y)
+    pumpkin.bounce2 = 0
   end
 end
