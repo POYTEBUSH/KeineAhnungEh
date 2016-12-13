@@ -18,8 +18,8 @@ function game_screen(pumpkinType)
   love.graphics.draw(background.sky.sprite3, background.sky.hills2x, background.sky.hillsY)
   love.graphics.draw(background.sky.sprite4, background.sky.fhills1x, background.sky.fhillsY)
   love.graphics.draw(background.sky.sprite4, background.sky.fhills2x, background.sky.fhillsY)
-  love.graphics.draw(background.fence.sprite1, fence1X, fenceY)
-  love.graphics.draw(background.fence.sprite1, fence2X, fenceY)
+  love.graphics.draw(background.fence.sprite1, background.fence1X, background.fenceY)
+  love.graphics.draw(background.fence.sprite1, background.fence2X, background.fenceY)
   
   if (life.value == 3) then    
     love.graphics.draw(lives, 310, 10)
@@ -36,8 +36,6 @@ function game_screen(pumpkinType)
   love.graphics.setFont(font.score)
   love.graphics.print( "Score: ", 10, 15 )
   love.graphics.print(score.value, score.X, 15)
-  --love.graphics.print( "Speed: ", 10, 50 )
-  --love.graphics.print(pumpkin.speed, score.X, 50)
   love.graphics.setFont(font.normal)
     
   love.graphics.draw(pumpkinSprite, pumpkin.X, pumpkin.Y)  
@@ -55,8 +53,8 @@ function game_screen(pumpkinType)
   
   background.sky.fhills1x = background.sky.fhills1x -0.3
   background.sky.fhills2x = background.sky.fhills2x -0.3
-  fence1X = fence1X -0.2
-  fence2X = fence2X -0.2
+  background.fence1X = background.fence1X -0.2
+  background.fence2X = background.fence2X -0.2
   
   if background.sky.x1 <= -600 then
     background.sky.x1 = 600  
@@ -86,10 +84,10 @@ function game_screen(pumpkinType)
     gameState = "menu"
   end
   
-  if fence1X <= -365 then
-    fence1X = 360  
-  elseif fence2X <= -365 then
-    fence2X = 360
+  if background.fence1X <= -365 then
+    background.fence1X = 360  
+  elseif background.fence2X <= -365 then
+    background.fence2X = 360
   end 
   
   hitTest1 = CheckCollision(pumpkin.X,pumpkin.Y,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)
@@ -114,7 +112,6 @@ function game_screen(pumpkinType)
         pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, mouse_x, mouse_y)
         pumpkin.bounce = 1
         score.value = score.value + 50
-        pumpkin.speed = pumpkin.speed *1.05
         MusicBoing:play()
       end
   end
@@ -125,7 +122,6 @@ function game_screen(pumpkinType)
         pumpkin.angle2 = math.angle(pumpkin.X2, pumpkin.Y2, mouse_x, mouse_y)
         pumpkin.bounce2 = 1
         score.value = score.value + 50
-        pumpkin.speed = pumpkin.speed *1.05
         MusicBoing:play()
       end
   end

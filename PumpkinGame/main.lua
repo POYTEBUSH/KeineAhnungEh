@@ -28,7 +28,7 @@ function love.load()
 		Music = love.audio.newSource('Audio/GB.mp3')
     MusicBoing = love.audio.newSource('Audio/Boing.mp3')
   	Music:setLooping(true)
- 		Music:play()s
+ 		Music:play()
       
   -- Sprites --
  		-- Background --
@@ -59,24 +59,11 @@ function love.load()
       background.sky.fhills2x  = 600
       background.sky.fhillsY   = 15
       
-      background.trees = {}
-      background.trees.sprite1 = love.graphics.newImage("Sprites/tree1.png") 
-      --background.trees.sprite2 = love.graphics.newImage("Sprites/tree2.png")
-      
       background.fence = {}
-      background.fence.sprite1 = love.graphics.newImage("Sprites/fence.png") 
-
-      sky1X = 0
-      sky2X = 600
-      skyY  = 1
-      
-      btree1X = 0
-      btree2X = 360
-      btreeY = 15
-      
-      fence1X = 0
-      fence2X = 360
-      fenceY = 225
+      background.fence.sprite1 = love.graphics.newImage("Sprites/fence.png")       
+      background.fence1X = 0
+      background.fence2X = 360
+      background.fenceY = 225
         
  		-- Player --
       playerHand = love.graphics.newImage("Sprites/playerHand.png")
