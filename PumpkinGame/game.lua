@@ -18,11 +18,8 @@ function game_screen(pumpkinType)
   love.graphics.draw(background.sky.sprite3, background.sky.hills2x, background.sky.hillsY)
   love.graphics.draw(background.sky.sprite4, background.sky.fhills1x, background.sky.fhillsY)
   love.graphics.draw(background.sky.sprite4, background.sky.fhills2x, background.sky.fhillsY)
-  --love.graphics.draw(background.trees.sprite1, btree1X, btreeY)
-  --love.graphics.draw(background.trees.sprite1, btree2X, btreeY)
   love.graphics.draw(background.fence.sprite1, fence1X, fenceY)
   love.graphics.draw(background.fence.sprite1, fence2X, fenceY)
-  --love.graphics.draw(background.one.sprite, background.one.quad, 0, -1)
   
   if (life.value == 3) then    
     love.graphics.draw(lives, 310, 10)
@@ -37,7 +34,10 @@ function game_screen(pumpkinType)
 
   
   love.graphics.setFont(font.score)
+  love.graphics.print( "Score: ", 10, 15 )
   love.graphics.print(score.value, score.X, 15)
+  --love.graphics.print( "Speed: ", 10, 50 )
+  --love.graphics.print(pumpkin.speed, score.X, 50)
   love.graphics.setFont(font.normal)
     
   love.graphics.draw(pumpkinSprite, pumpkin.X, pumpkin.Y)  
@@ -46,19 +46,13 @@ function game_screen(pumpkinType)
   love.graphics.draw(cauldron, 40, 450)  
   love.graphics.draw(marker.sprite, marker.X, marker.Y, angle, 1, 1, 15, 15)
   
-  -- Debug -- 
-  love.graphics.print( "Mouse X: ".. mouse_x .. " Mouse Y: " .. mouse_y, 10, 10 )
-  love.graphics.print( "Sky1X: " .. sky1X, 10, 15 )
-  love.graphics.print( "Sky2X: " .. sky2X, 10, 20 )
-  love.graphics.print( "Game State: " .. gameState, 10, 25 )
-  love.graphics.print( "Pumkin Chosen: " .. chosenPumkin, 10, 30 )
-  
   background.sky.x1   = background.sky.x1 - 0.6
   background.sky.x2   = background.sky.x2 - 0.6
   background.sky.bhills1x = background.sky.bhills1x -0.5
   background.sky.bhills2x = background.sky.bhills2x -0.5
   background.sky.hills1x = background.sky.hills1x -0.4
   background.sky.hills2x = background.sky.hills2x -0.4
+  
   background.sky.fhills1x = background.sky.fhills1x -0.3
   background.sky.fhills2x = background.sky.fhills2x -0.3
   fence1X = fence1X -0.2
@@ -103,7 +97,6 @@ function game_screen(pumpkinType)
       pumpkin.Y = math.random(-50, 10)
       pumpkin.X = math.random(-100, 460)
       pumpkin.bounce = 0
-      score.value = score.value - 100
       life.value = life.value - 1
     end
   hitTest1 = CheckCollision(pumpkin.X2,pumpkin.Y2,pumpkin.W,pumpkin.H, marker.X,marker.Y,marker.W,marker.H)
@@ -111,7 +104,6 @@ function game_screen(pumpkinType)
       pumpkin.Y2 = math.random(-50, 10)
       pumpkin.X2 = math.random(-100, 460)
       pumpkin.bounce2 = 0
-      score.value = score.value - 100
       life.value = life.value - 1
     end
   -- Click to send back --
@@ -121,6 +113,9 @@ function game_screen(pumpkinType)
         pumpkin.speed = -300
         pumpkin.angle = math.angle(pumpkin.X, pumpkin.Y, mouse_x, mouse_y)
         pumpkin.bounce = 1
+        score.value = score.value + 50
+        pumpkin.speed = pumpkin.speed *1.05
+        MusicBoing:play()
       end
   end
   if pumpkin.bounce2 == 0 then
@@ -129,6 +124,9 @@ function game_screen(pumpkinType)
         pumpkin.speed2 = -300
         pumpkin.angle2 = math.angle(pumpkin.X2, pumpkin.Y2, mouse_x, mouse_y)
         pumpkin.bounce2 = 1
+        score.value = score.value + 50
+        pumpkin.speed = pumpkin.speed *1.05
+        MusicBoing:play()
       end
   end
 end

@@ -41,6 +41,8 @@ function charbutton_click(x, y)
         elseif v.id == "salt" then
           pumpkinSet = "pumpkinRage"
           gameState = "game"
+                elseif v.id == "back" then
+          gameState = "menu"
         end
     end  
   end

@@ -25,9 +25,10 @@ function love.load()
     font.score = love.graphics.newFont("Fonts/sugarpunch-demo.regular.otf", 30)
       
 	-- Audio --    
-		--local Music = love.audio.newSource('Audio/GB.mp3')
-  	--Music:setLooping(true)
- 		--Music:play()
+		Music = love.audio.newSource('Audio/GB.mp3')
+    MusicBoing = love.audio.newSource('Audio/Boing.mp3')
+  	Music:setLooping(true)
+ 		Music:play()s
       
   -- Sprites --
  		-- Background --
@@ -83,7 +84,7 @@ function love.load()
       angle = 0 
 
     -- Pumpkins -- 
-      pumpkin = {}
+        pumpkin = {}
       -- Bounce
         pumpkin.bounce = 0
         pumpkin.bounce2 = 0
@@ -154,6 +155,7 @@ function love.load()
       charbutton_spawn(85, 265, "Pumpking", "pumpkinKing")
       charbutton_spawn(85, 315, "Happy Dude", "happy")
       charbutton_spawn(85, 365, "Captain Salt", "salt")
+      charbutton_spawn(85, 450, "Back", "back")
         
     -- Score --
       lives = love.graphics.newImage("Sprites/lives1.png") 
@@ -191,7 +193,6 @@ end
 
 function game_menu()
   love.graphics.draw(background.menu.sprite, background.menu.quad, 0, -1)
-  love.graphics.print( "Gamestate: ".. gameState, 10, 10 )
   button_draw()
 end
 
@@ -233,7 +234,6 @@ function love.update(dt)
   end
   
   -- For Debug --
-  score.value = score.value + 1
   love.graphics.rotate( 1 )
   
   angle = math.angle (marker.X, marker.Y, pumpkin.X, pumpkin.Y) 
