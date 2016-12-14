@@ -10,6 +10,8 @@ function game_screen(pumpkinType)
   love.graphics.setFont(font.normal)
   love.mouse.setVisible(false)
   
+  score.lives = 0
+  
   love.graphics.draw(background.sky.sprite1, background.sky.x1, background.sky.Y)
   love.graphics.draw(background.sky.sprite1, background.sky.x2, background.sky.Y)
   love.graphics.draw(background.sky.sprite2, background.sky.bhills1x, background.sky.bhillsY)
